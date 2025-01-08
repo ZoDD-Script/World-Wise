@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useReducer, useState } from "react"
+import { createContext, useContext, useEffect, useReducer } from "react"
 
 const CitiesContext = createContext()
 const BASE_URL = 'http://localhost:9000';
