@@ -36,13 +36,15 @@ function reducer(state, action) {
       return {
         ...state,
         isLoading: false,
-        cities: [...state.cities, action.payload]
+        cities: [...state.cities, action.payload],
+        currentCity: action.payload
       };
     case 'city/deleted':
       return {
         ...state,
         isLoading: false,
-        cities: state.cities.filter(city => city.id !== action.payload)
+        cities: state.cities.filter(city => city.id !== action.payload),
+        currentCity: {}
       };
     case 'rejected':
       return {
@@ -60,8 +62,7 @@ function CitiesProvider({ children }) {
   // const [isLoading, setIsLoading] = useState(false);
   // const [currentCity, setCurrentCity] = useState({});
 
-
-  const [{cities, isLoading, currentCity}, dispatch] = useReducer(reducer, initialState)
+  const [{cities, isLoading, currentCity, error}, dispatch] = useReducer(reducer, initialState)
 
   async function fetchCities() {
     dispatch({type: 'loading'})
@@ -77,6 +78,8 @@ function CitiesProvider({ children }) {
   }
 
   async function getCity(id) {
+    if(Number(id) === currentCity.id) return;
+
     dispatch({type: 'loading'})
 
     try {
@@ -90,6 +93,7 @@ function CitiesProvider({ children }) {
   }
 
   async function createCity(newCity) {
+    if(Number(newCity.id) === currentCity.id) return;
     dispatch({type: 'loading'})
 
     try {
@@ -135,6 +139,7 @@ function CitiesProvider({ children }) {
       cities,
       isLoading,
       currentCity,
+      error,
       getCity,
       createCity,
       deleteCity

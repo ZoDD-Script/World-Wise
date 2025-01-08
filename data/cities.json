@@ -47,6 +47,18 @@
         "lat": "6.449250560881281",
         "lng": "3.3947753906250004"
       }
+    },
+    {
+      "id": "8eef",
+      "cityName": "Garden City",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2024-12-12T13:54:51.248Z",
+      "notes": "beautiful people",
+      "position": {
+        "lat": "37.94927898591081",
+        "lng": "-100.84899902343751"
+      }
     }
   ]
 }

@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable no-unused-vars */
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
 import { useEffect, useState } from "react";
@@ -13,18 +11,10 @@ import BackButton from "./BackButton";
 import Message from "./Message";
 import Spinner from "./Spinner";
 
-import flagemojiToPNG from "../../data/countryFlag";
+import flagemojiToPNG, { convertToEmoji } from "../../data/countryFlag";
 import { useUrlPosition } from "../hooks/useUrlPosition";
 import { useCities } from "../contexts/CitiesContext";
-import { useNavigate } from "react-router-dom";
-
-export function convertToEmoji(countryCode) {
-  const codePoints = countryCode
-    .toUpperCase()
-    .split("")
-    .map((char) => 127397 + char.charCodeAt());
-  return String.fromCodePoint(...codePoints);
-}
+import { useNavigate } from "react-router-dom"; 
 
 const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
