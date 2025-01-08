@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
@@ -33,7 +35,7 @@ function AuthProvider({ children }) {
   const [ {user, isAuthenticated}, dispatch ] = useReducer(reducer, initialState)
 
   function login(email, password) {
-    if (email === FAKE_USER && password === FAKE_USER.password)
+    if (email === FAKE_USER.email && password === FAKE_USER.password)
       dispatch({ type: 'login', payload: FAKE_USER })
   }
   
@@ -57,6 +59,7 @@ function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined)
     throw new Error("AuthContext was used outside AuthProvider")
+  return context;
 }
 
 export { AuthProvider, useAuth }
