@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useReducer } from "react"
+import { createContext, useCallback, useContext, useEffect, useReducer } from "react"
 
 const CitiesContext = createContext()
 const BASE_URL = 'http://localhost:9000';
@@ -77,20 +77,23 @@ function CitiesProvider({ children }) {
     }
   }
 
-  async function getCity(id) {
+  const getCity = useCallback(
+    async function getCity(id) {
     if(Number(id) === currentCity.id) return;
 
-    dispatch({type: 'loading'})
+      dispatch({type: 'loading'})
 
-    try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await res.json();
-      dispatch({type: 'city/loaded', payload: data})
-    } catch (error) {
-      dispatch({type: 'rejected', payload: 'There was an error fetching data'})
-      console.log("error", error)
-    }
-  }
+      try {
+        const res = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await res.json();
+        dispatch({type: 'city/loaded', payload: data})
+      } catch (error) {
+        dispatch({type: 'rejected', payload: 'There was an error fetching data'})
+        console.log("error", error)
+      }
+    },
+    [currentCity.id]
+  )
 
   async function createCity(newCity) {
     if(Number(newCity.id) === currentCity.id) return;
